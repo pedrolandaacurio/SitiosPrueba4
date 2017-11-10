@@ -1,0 +1,367 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="SitiosSet" EntityType="Model1.Store.SitiosSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="InformantesSet" EntityType="Model1.Store.InformantesSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="VictimasSet" EntityType="Model1.Store.VictimasSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FamiliaresSet" EntityType="Model1.Store.FamiliaresSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TestigosSet" EntityType="Model1.Store.TestigosSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="SitiosInformantes" Association="Model1.Store.SitiosInformantes">
+      <End Role="Sitios" EntitySet="SitiosSet" />
+      <End Role="Informantes" EntitySet="InformantesSet" />
+    </AssociationSet>
+    <AssociationSet Name="SitiosVictimas" Association="Model1.Store.SitiosVictimas">
+      <End Role="Sitios" EntitySet="SitiosSet" />
+      <End Role="Victimas" EntitySet="VictimasSet" />
+    </AssociationSet>
+    <AssociationSet Name="FamiliaresVictimas" Association="Model1.Store.FamiliaresVictimas">
+      <End Role="Familiares" EntitySet="FamiliaresSet" />
+      <End Role="Victimas" EntitySet="VictimasSet" />
+    </AssociationSet>
+    <AssociationSet Name="SitiosTestigos" Association="Model1.Store.SitiosTestigos">
+      <End Role="Sitios" EntitySet="SitiosSet" />
+      <End Role="Testigos" EntitySet="TestigosSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="SitiosSet">
+    <Key>
+      <PropertyRef Name="Id_Sitio" />
+    </Key>
+    <Property Name="Id_Sitio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CodigoSitio" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="X" Type="decimal" Nullable="false" />
+    <Property Name="Y" Type="decimal" Nullable="false" />
+    <Property Name="Altitud" Type="decimal" Nullable="false" />
+    <Property Name="Propiedad" Type="int" Nullable="false" />
+    <Property Name="Antecedentes" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RelatoAcontecimientos" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FechaEvento" Type="datetime" Nullable="false" />
+    <Property Name="FechaInhumacion" Type="datetime" Nullable="false" />
+    <Property Name="NumeroVictimas" Type="int" Nullable="false" />
+    <Property Name="ExhumacionAnterior" Type="bit" Nullable="false" />
+    <Property Name="MaterialesAdicionales" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InformantesSet">
+    <Key>
+      <PropertyRef Name="Id_Informante" />
+    </Key>
+    <Property Name="Id_Informante" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombres" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ApellidoPaterno" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ApellidoMaterno" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Sitios_Id_Sitio" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VictimasSet">
+    <Key>
+      <PropertyRef Name="Id_Victima" />
+    </Key>
+    <Property Name="Id_Victima" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Codigo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="NA" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Sexo" Type="int" Nullable="false" />
+    <Property Name="Edad" Type="float" Nullable="false" />
+    <Property Name="Procedencia" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Familia" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PresuntaAfiliacion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Sitios_Id_Sitio" Type="int" Nullable="false" />
+    <Property Name="Familiares_Id_Familiar" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FamiliaresSet">
+    <Key>
+      <PropertyRef Name="Id_Familiar" />
+    </Key>
+    <Property Name="Id_Familiar" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Familiar" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TestigosSet">
+    <Key>
+      <PropertyRef Name="Id_Testigo" />
+    </Key>
+    <Property Name="Id_Testigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombres" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ApellidoPaterno" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ApellidoMaterno" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Sitios_Id_Sitio" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="SitiosInformantes">
+    <End Role="Sitios" Type="Model1.Store.SitiosSet" Multiplicity="1" />
+    <End Role="Informantes" Type="Model1.Store.InformantesSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sitios">
+        <PropertyRef Name="Id_Sitio" />
+      </Principal>
+      <Dependent Role="Informantes">
+        <PropertyRef Name="Sitios_Id_Sitio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SitiosVictimas">
+    <End Role="Sitios" Type="Model1.Store.SitiosSet" Multiplicity="1" />
+    <End Role="Victimas" Type="Model1.Store.VictimasSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sitios">
+        <PropertyRef Name="Id_Sitio" />
+      </Principal>
+      <Dependent Role="Victimas">
+        <PropertyRef Name="Sitios_Id_Sitio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FamiliaresVictimas">
+    <End Role="Familiares" Type="Model1.Store.FamiliaresSet" Multiplicity="1" />
+    <End Role="Victimas" Type="Model1.Store.VictimasSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Familiares">
+        <PropertyRef Name="Id_Familiar" />
+      </Principal>
+      <Dependent Role="Victimas">
+        <PropertyRef Name="Familiares_Id_Familiar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SitiosTestigos">
+    <End Role="Sitios" Type="Model1.Store.SitiosSet" Multiplicity="1" />
+    <End Role="Testigos" Type="Model1.Store.TestigosSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sitios">
+        <PropertyRef Name="Id_Sitio" />
+      </Principal>
+      <Dependent Role="Testigos">
+        <PropertyRef Name="Sitios_Id_Sitio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="SitiosSet" EntityType="Model1.Sitios" />
+          <EntitySet Name="InformantesSet" EntityType="Model1.Informantes" />
+          <AssociationSet Name="SitiosInformantes" Association="Model1.SitiosInformantes">
+            <End Role="Sitios" EntitySet="SitiosSet" />
+            <End Role="Informantes" EntitySet="InformantesSet" />
+          </AssociationSet>
+          <EntitySet Name="VictimasSet" EntityType="Model1.Victimas" />
+          <AssociationSet Name="SitiosVictimas" Association="Model1.SitiosVictimas">
+            <End Role="Sitios" EntitySet="SitiosSet" />
+            <End Role="Victimas" EntitySet="VictimasSet" />
+          </AssociationSet>
+          <EntitySet Name="FamiliaresSet" EntityType="Model1.Familiares" />
+          <AssociationSet Name="FamiliaresVictimas" Association="Model1.FamiliaresVictimas">
+            <End Role="Familiares" EntitySet="FamiliaresSet" />
+            <End Role="Victimas" EntitySet="VictimasSet" />
+          </AssociationSet>
+          <EntitySet Name="TestigosSet" EntityType="Model1.Testigos" />
+          <AssociationSet Name="SitiosTestigos" Association="Model1.SitiosTestigos">
+            <End Role="Sitios" EntitySet="SitiosSet" />
+            <End Role="Testigos" EntitySet="TestigosSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Sitios">
+          <Key>
+            <PropertyRef Name="Id_Sitio" />
+          </Key>
+          <Property Name="Id_Sitio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoSitio" Type="String" Nullable="false" />
+          <Property Name="X" Type="Decimal" Nullable="false" />
+          <Property Name="Y" Type="Decimal" Nullable="false" />
+          <Property Name="Altitud" Type="Decimal" Nullable="false" />
+          <Property Name="Propiedad" Type="Int32" Nullable="false" />
+          <Property Name="Antecedentes" Type="String" Nullable="false" />
+          <Property Name="RelatoAcontecimientos" Type="String" Nullable="false" />
+          <Property Name="FechaEvento" Type="DateTime" Nullable="false" />
+          <Property Name="FechaInhumacion" Type="DateTime" Nullable="false" />
+          <Property Name="NumeroVictimas" Type="Int32" Nullable="false" />
+          <Property Name="ExhumacionAnterior" Type="Boolean" Nullable="false" />
+          <Property Name="MaterialesAdicionales" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Informantes" Relationship="Model1.SitiosInformantes" FromRole="Sitios" ToRole="Informantes" />
+          <NavigationProperty Name="Victimas" Relationship="Model1.SitiosVictimas" FromRole="Sitios" ToRole="Victimas" />
+          <NavigationProperty Name="Testigos" Relationship="Model1.SitiosTestigos" FromRole="Sitios" ToRole="Testigos" />
+          </EntityType>
+        <EntityType Name="Informantes">
+          <Key>
+            <PropertyRef Name="Id_Informante" />
+          </Key>
+          <Property Name="Id_Informante" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombres" Type="String" Nullable="false" />
+          <Property Name="ApellidoPaterno" Type="String" Nullable="false" />
+          <Property Name="ApellidoMaterno" Type="String" Nullable="false" />
+          <NavigationProperty Name="Sitios" Relationship="Model1.SitiosInformantes" FromRole="Informantes" ToRole="Sitios" />
+        </EntityType>
+        <Association Name="SitiosInformantes">
+          <End Type="Model1.Sitios" Role="Sitios" Multiplicity="1" />
+          <End Type="Model1.Informantes" Role="Informantes" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Victimas">
+          <Key>
+            <PropertyRef Name="Id_Victima" />
+          </Key>
+          <Property Name="Id_Victima" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" />
+          <Property Name="NA" Type="String" Nullable="false" />
+          <Property Name="Sexo" Type="Int32" Nullable="false" />
+          <Property Name="Edad" Type="Double" Nullable="false" />
+          <Property Name="Procedencia" Type="String" Nullable="false" />
+          <Property Name="Familia" Type="String" Nullable="false" />
+          <Property Name="PresuntaAfiliacion" Type="String" Nullable="false" />
+          <NavigationProperty Name="Sitios" Relationship="Model1.SitiosVictimas" FromRole="Victimas" ToRole="Sitios" />
+          <NavigationProperty Name="Familiares" Relationship="Model1.FamiliaresVictimas" FromRole="Victimas" ToRole="Familiares" />
+        </EntityType>
+        <Association Name="SitiosVictimas">
+          <End Type="Model1.Sitios" Role="Sitios" Multiplicity="1" />
+          <End Type="Model1.Victimas" Role="Victimas" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Familiares">
+          <Key>
+            <PropertyRef Name="Id_Familiar" />
+          </Key>
+          <Property Name="Id_Familiar" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Familiar" Type="String" Nullable="false" />
+          <NavigationProperty Name="Victimas" Relationship="Model1.FamiliaresVictimas" FromRole="Familiares" ToRole="Victimas" />
+        </EntityType>
+        <Association Name="FamiliaresVictimas">
+          <End Type="Model1.Familiares" Role="Familiares" Multiplicity="1" />
+          <End Type="Model1.Victimas" Role="Victimas" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Testigos">
+          <Key>
+            <PropertyRef Name="Id_Testigo" />
+          </Key>
+          <Property Name="Id_Testigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombres" Type="String" Nullable="false" />
+          <Property Name="ApellidoPaterno" Type="String" Nullable="false" />
+          <Property Name="ApellidoMaterno" Type="String" Nullable="false" />
+          <NavigationProperty Name="Sitios" Relationship="Model1.SitiosTestigos" FromRole="Testigos" ToRole="Sitios" />
+        </EntityType>
+        <Association Name="SitiosTestigos">
+          <End Type="Model1.Sitios" Role="Sitios" Multiplicity="1" />
+          <End Type="Model1.Testigos" Role="Testigos" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="SitiosSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Sitios)">
+        <MappingFragment StoreEntitySet="SitiosSet">
+          <ScalarProperty Name="Id_Sitio" ColumnName="Id_Sitio" />
+          <ScalarProperty Name="CodigoSitio" ColumnName="CodigoSitio" />
+          <ScalarProperty Name="X" ColumnName="X" />
+          <ScalarProperty Name="Y" ColumnName="Y" />
+          <ScalarProperty Name="Altitud" ColumnName="Altitud" />
+          <ScalarProperty Name="Propiedad" ColumnName="Propiedad" />
+          <ScalarProperty Name="Antecedentes" ColumnName="Antecedentes" />
+          <ScalarProperty Name="RelatoAcontecimientos" ColumnName="RelatoAcontecimientos" />
+          <ScalarProperty Name="FechaEvento" ColumnName="FechaEvento" />
+          <ScalarProperty Name="FechaInhumacion" ColumnName="FechaInhumacion" />
+          <ScalarProperty Name="NumeroVictimas" ColumnName="NumeroVictimas" />
+          <ScalarProperty Name="ExhumacionAnterior" ColumnName="ExhumacionAnterior" />
+          <ScalarProperty Name="MaterialesAdicionales" ColumnName="MaterialesAdicionales" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InformantesSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Informantes)">
+        <MappingFragment StoreEntitySet="InformantesSet">
+          <ScalarProperty Name="Id_Informante" ColumnName="Id_Informante" />
+          <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+          <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+          <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VictimasSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Victimas)">
+        <MappingFragment StoreEntitySet="VictimasSet">
+          <ScalarProperty Name="Id_Victima" ColumnName="Id_Victima" />
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="NA" ColumnName="NA" />
+          <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+          <ScalarProperty Name="Edad" ColumnName="Edad" />
+          <ScalarProperty Name="Procedencia" ColumnName="Procedencia" />
+          <ScalarProperty Name="Familia" ColumnName="Familia" />
+          <ScalarProperty Name="PresuntaAfiliacion" ColumnName="PresuntaAfiliacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FamiliaresSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Familiares)">
+        <MappingFragment StoreEntitySet="FamiliaresSet">
+          <ScalarProperty Name="Id_Familiar" ColumnName="Id_Familiar" />
+          <ScalarProperty Name="Familiar" ColumnName="Familiar" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TestigosSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Testigos)">
+        <MappingFragment StoreEntitySet="TestigosSet">
+          <ScalarProperty Name="Id_Testigo" ColumnName="Id_Testigo" />
+          <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+          <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+          <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="SitiosInformantes" TypeName="Model1.SitiosInformantes" StoreEntitySet="InformantesSet">
+      <EndProperty Name="Sitios">
+        <ScalarProperty Name="Id_Sitio" ColumnName="Sitios_Id_Sitio" />
+      </EndProperty>
+      <EndProperty Name="Informantes">
+        <ScalarProperty Name="Id_Informante" ColumnName="Id_Informante" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SitiosVictimas" TypeName="Model1.SitiosVictimas" StoreEntitySet="VictimasSet">
+      <EndProperty Name="Sitios">
+        <ScalarProperty Name="Id_Sitio" ColumnName="Sitios_Id_Sitio" />
+      </EndProperty>
+      <EndProperty Name="Victimas">
+        <ScalarProperty Name="Id_Victima" ColumnName="Id_Victima" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FamiliaresVictimas" TypeName="Model1.FamiliaresVictimas" StoreEntitySet="VictimasSet">
+      <EndProperty Name="Familiares">
+        <ScalarProperty Name="Id_Familiar" ColumnName="Familiares_Id_Familiar" />
+      </EndProperty>
+      <EndProperty Name="Victimas">
+        <ScalarProperty Name="Id_Victima" ColumnName="Id_Victima" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SitiosTestigos" TypeName="Model1.SitiosTestigos" StoreEntitySet="TestigosSet">
+      <EndProperty Name="Sitios">
+        <ScalarProperty Name="Id_Sitio" ColumnName="Sitios_Id_Sitio" />
+      </EndProperty>
+      <EndProperty Name="Testigos">
+        <ScalarProperty Name="Id_Testigo" ColumnName="Id_Testigo" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
