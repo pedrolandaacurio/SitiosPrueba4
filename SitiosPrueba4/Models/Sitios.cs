@@ -11,7 +11,9 @@ namespace SitiosPrueba4.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
+
     public partial class Sitios
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,17 +25,30 @@ namespace SitiosPrueba4.Models
         }
     
         public int Id_Sitio { get; set; }
+        [Display(Name ="Código de sitio")]
         public string CodigoSitio { get; set; }
+        [Display(Name ="Coordenada X")]
         public decimal X { get; set; }
+        [Display(Name = "Coordenada Y")]
         public decimal Y { get; set; }
         public decimal Altitud { get; set; }
-        public int Propiedad { get; set; }
+        public int Propiedad { get; set; }        
+        [DataType(DataType.MultilineText)]
         public string Antecedentes { get; set; }
+        [Display(Name ="Relato de los acontecimientos")]
+        [DataType(DataType.MultilineText)]
         public string RelatoAcontecimientos { get; set; }
+        [Display(Name ="Fecha de Evento")]
+        [DataType(DataType.Date)]
         public System.DateTime FechaEvento { get; set; }
+        [Display(Name = "Fecha en la que se habría producido la inhumación")]
+        [DataType(DataType.Date)]
         public System.DateTime FechaInhumacion { get; set; }
+        [Display(Name = "Número de Víctimas")]
         public int NumeroVictimas { get; set; }
+        [Display(Name = "¿Exhumación anterior?")]
         public bool ExhumacionAnterior { get; set; }
+        [Display(Name = "Materiales adicionales")]
         public bool MaterialesAdicionales { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
